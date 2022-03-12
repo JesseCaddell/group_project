@@ -1,0 +1,13 @@
+{% block title %}Result Page{% endblock %}
+
+{% block content %}
+
+<p>The query for {{ queryterm }} has found:</p>
+<ul>
+{% for item in result %}
+    <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+
+{% endblock %}

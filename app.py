@@ -2,29 +2,41 @@ from flask import Flask, render_template, request, url_for, redirect, session
 from test_list import test_list
 
 app = Flask(__name__)
-app.config.from_object('myapplication.default_settings')
-app.config.from_envvar('MYAPPLICATION_SETTINGS')
+
 
 @app.route("/")
 def home_page():
     return render_template('index.html')
 
-@app.route("/submit", methods=["POST", "GET"])
+
+@app.route("/submit")
 def submit():
-    if request.method == "POST":
-        queryterm = request.form["search"]
-        session['passed_queryterm'] = queryterm
-        return redirect(url_for("result", queryterm=queryterm))
-    else:
         return render_template('submit.html')
 
-@app.route("/result")
-def result():
-    result = test_list
-    passed_queryterm = session.get('passed_queryterm', None)
-    return render_template('result.html', result=result, passed_queryterm=passed_queryterm)
+
+@app.route('/addquery', methods=["POST", "GET"])
+def new_query():
+    if request.method == "POST":
+        query = request.form['search']
+        result = test_list
+        new_list = []
+
+        
+        if query in result:
+            new_list.append(query)
+            
+                
+        
+        else:
+            new_list = ["search invalid"]
+
+        
+
+        return render_template("result.html", query=query, new_list=new_list )
+
+
 
 
 if __name__ == "__main__":
-   
+
     app.run(debug=True)

@@ -2,12 +2,14 @@
 
 {% block content %}
 
-<p>The query for {{ queryterm }} has found:</p>
+<p>The query for {{ query }} has found:</p>
 <ul>
-{% for item in result %}
+{% for item in new_list %}
     <li>{{ item }}</li>
 {% endfor %}
 </ul>
+
+<p><h3><a href="submit">Try another term?</a></h3></p>
 
 
 {% endblock %}
